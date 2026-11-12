@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import {
   BookOpen,
@@ -104,14 +105,19 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
         </nav>
 
         <div className="navbar__actions">
-          <Button
-            variant="secondary"
+          {/* Botón de tema con texto explicativo visible */}
+          <button
+            type="button"
             onClick={onToggleTheme}
-            icon={theme === 'dark' ? Sun : Moon}
-            aria-label="Cambiar tema claro u oscuro"
+            className="navbar__theme-toggle"
+            aria-label="Cambiar modo de tema"
             title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-            className="navbar__theme-btn"
-          />
+          >
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+            <span className="navbar__theme-label">
+              {theme === 'dark' ? 'Modo Claro' : 'Modo Oscuro'}
+            </span>
+          </button>
 
           {/* Botón hamburguesa exclusivo para móvil */}
           <button
@@ -126,44 +132,70 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
         </div>
       </div>
 
-      {/* Menú desplegable móvil */}
-      {mobileMenuOpen && (
-        <div
-          className="navbar__mobile-backdrop"
-          onClick={() => setMobileMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      <div
-        className={`navbar__mobile-drawer ${
-          mobileMenuOpen ? 'navbar__mobile-drawer--open' : ''
-        }`}
-        aria-label="Menú móvil"
-      >
-        <div className="navbar__mobile-nav">
-          <div className="navbar__mobile-header">
-            <span className="navbar__mobile-tag">Navegación del Blog</span>
-            <button
-              type="button"
-              className="navbar__mobile-close-btn"
+      {/* Renderizar el menú móvil en un portal directo al body para sobresalir de cualquier contenedor */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className={`navbar__portal-wrapper ${
+              mobileMenuOpen ? 'navbar__portal-wrapper--open' : ''
+            }`}
+          >
+            <div
+              className="navbar__mobile-backdrop"
               onClick={() => setMobileMenuOpen(false)}
-              aria-label="Cerrar menú"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          {NAV_ITEMS.map((item) => (
-            <NavLinkItem
-              key={item.to}
-              to={item.to}
-              label={item.label}
-              icon={item.icon}
-              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
             />
-          ))}
-        </div>
-      </div>
+
+            <div
+              className="navbar__mobile-drawer"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menú de navegación"
+            >
+              <div className="navbar__mobile-nav">
+                <div className="navbar__mobile-header">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                    <span className="navbar__mobile-tag">Menú de Navegación</span>
+                    <strong className="navbar__mobile-brand-title">{blogTitle}</strong>
+                  </div>
+                  <button
+                    type="button"
+                    className="navbar__mobile-close-btn"
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Cerrar menú"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <div className="navbar__mobile-links">
+                  {NAV_ITEMS.map((item) => (
+                    <NavLinkItem
+                      key={item.to}
+                      to={item.to}
+                      label={item.label}
+                      icon={item.icon}
+                      onClick={() => setMobileMenuOpen(false)}
+                    />
+                  ))}
+                </div>
+
+                {/* Alternador de tema también dentro del menú móvil */}
+                <div className="navbar__mobile-footer">
+                  <button
+                    type="button"
+                    onClick={onToggleTheme}
+                    className="navbar__mobile-theme-btn"
+                  >
+                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                    <span>{theme === 'dark' ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </header>
   );
 }
