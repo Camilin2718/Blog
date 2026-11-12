@@ -1,10 +1,10 @@
 import { ArrowRight, BookOpen } from 'lucide-react';
-import { Button, Divider } from '../components/atoms';
+import { Button } from '../components/atoms';
 import { AuthorMeta, PageHeader } from '../components/molecules';
-import { PostArticle, RubricGuidePanel } from '../components/organisms';
+import { PostArticle } from '../components/organisms';
 import { blogContent } from '../data/blogContent';
 
-export function PostPage({ showGuides }) {
+export function PostPage() {
   const { blogMeta, mainPost } = blogContent;
   const postTitle = `La importancia de ${blogMeta.technologyName} en la actualidad`;
 
@@ -26,7 +26,7 @@ export function PostPage({ showGuides }) {
         />
       </div>
 
-      <PostArticle post={mainPost} showGuides={showGuides} />
+      <PostArticle post={mainPost} />
 
       <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
         <Button to="/" variant="secondary">
@@ -36,21 +36,6 @@ export function PostPage({ showGuides }) {
           Continuar a Página 1: ¿Qué es?
         </Button>
       </div>
-
-      {showGuides && (
-        <>
-          <Divider />
-          <RubricGuidePanel
-            title="Requisitos de la Entrada del Blog"
-            items={[
-              'Título: "La importancia de [nombre de la tecnología] en la actualidad"',
-              'Extensión mínima de 300 palabras',
-              'Al menos una imagen relacionada',
-              'Mínimo una fuente de consulta confiable y conclusión personal',
-            ]}
-          />
-        </>
-      )}
     </div>
   );
 }

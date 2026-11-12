@@ -1,21 +1,12 @@
 import { Footer, Navbar } from '../organisms';
 
-export function MainLayout({
-  children,
-  blogMeta,
-  theme,
-  onToggleTheme,
-  showGuides,
-  onToggleGuides,
-}) {
+export function MainLayout({ children, blogMeta, theme, onToggleTheme }) {
   return (
     <div className="main-layout">
       <Navbar
         blogTitle={blogMeta.blogTitle}
         theme={theme}
         onToggleTheme={onToggleTheme}
-        showGuides={showGuides}
-        onToggleGuides={onToggleGuides}
       />
 
       <main className="main-content">

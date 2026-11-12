@@ -1,8 +1,8 @@
-import { BookMarked, Lightbulb, MessageSquareQuote } from 'lucide-react';
+import { BookMarked, MessageSquareQuote } from 'lucide-react';
 import { Heading, ImageSlot, SurfaceCard, WordCounterBadge } from '../atoms';
 import { ContentBlock, ReferenceItem } from '../molecules';
 
-export function PostArticle({ post, showGuides }) {
+export function PostArticle({ post }) {
   return (
     <div className="article-layout">
       <article className="article-body">
@@ -15,17 +15,12 @@ export function PostArticle({ post, showGuides }) {
 
         <SurfaceCard>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            {showGuides && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
-                <span style={{ fontSize: '0.86rem', color: 'var(--text-muted)' }}>
-                  Conteo automático del cuerpo + conclusión personal:
-                </span>
-                <WordCounterBadge
-                  texts={[...post.paragraphs, post.personalConclusion]}
-                  minWords={300}
-                />
-              </div>
-            )}
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <WordCounterBadge
+                texts={[...post.paragraphs, post.personalConclusion]}
+                minWords={300}
+              />
+            </div>
 
             {post.paragraphs.map((paragraph, index) => (
               <p key={index} className="article-paragraph">
@@ -60,20 +55,6 @@ export function PostArticle({ post, showGuides }) {
             ))}
           </div>
         </SurfaceCard>
-
-        {showGuides && (
-          <SurfaceCard highlight>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', marginBottom: '0.6rem' }}>
-              <Lightbulb size={18} color="var(--accent-primary)" aria-hidden="true" />
-              <Heading level={4}>Recordatorio de redacción</Heading>
-            </div>
-            <ul style={{ margin: 0, paddingLeft: '1.15rem', fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-              <li>Redacta con tus propias palabras.</li>
-              <li>Evita copiar y pegar contenido de Internet.</li>
-              <li>Verifica ortografía antes de tomar la captura final.</li>
-            </ul>
-          </SurfaceCard>
-        )}
       </aside>
     </div>
   );

@@ -1,10 +1,9 @@
 import { ArrowRight, Compass, Cpu, Sparkles } from 'lucide-react';
-import { Button, Divider, Heading, ImageSlot } from '../components/atoms';
+import { Button, Heading, ImageSlot } from '../components/atoms';
 import { ContentBlock, FeatureCard, PageHeader } from '../components/molecules';
-import { RubricGuidePanel } from '../components/organisms';
 import { blogContent } from '../data/blogContent';
 
-export function WhatIsPage({ showGuides }) {
+export function WhatIsPage() {
   const { blogMeta, page1WhatIs } = blogContent;
 
   return (
@@ -60,21 +59,6 @@ export function WhatIsPage({ showGuides }) {
           Siguiente: Página 2 (Ventajas y aplicaciones)
         </Button>
       </div>
-
-      {showGuides && (
-        <>
-          <Divider />
-          <RubricGuidePanel
-            title="Requisitos de la Página 1: ¿Qué es la tecnología?"
-            items={[
-              'Definición redactada con tus propias palabras',
-              'Características principales de la tecnología',
-              'Importancia en la actualidad',
-              'Al menos una imagen relacionada',
-            ]}
-          />
-        </>
-      )}
     </div>
   );
 }

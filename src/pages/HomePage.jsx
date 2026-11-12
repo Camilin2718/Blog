@@ -1,10 +1,10 @@
 import { BookOpen, Sparkles } from 'lucide-react';
-import { Button, Divider, Heading, SurfaceCard } from '../components/atoms';
+import { Button, Heading, SurfaceCard } from '../components/atoms';
 import { AuthorMeta, HeroBanner } from '../components/molecules';
-import { PageNavigationCards, RubricGuidePanel } from '../components/organisms';
+import { PageNavigationCards } from '../components/organisms';
 import { blogContent } from '../data/blogContent';
 
-export function HomePage({ showGuides }) {
+export function HomePage() {
   const { blogMeta, mainPost } = blogContent;
   const postTitle = `La importancia de ${blogMeta.technologyName} en la actualidad`;
 
@@ -68,21 +68,6 @@ export function HomePage({ showGuides }) {
       </section>
 
       <PageNavigationCards technologyName={blogMeta.technologyName} />
-
-      {showGuides && (
-        <>
-          <Divider />
-          <RubricGuidePanel
-            title="Pautas de la Página Principal (Inicio)"
-            items={[
-              'Título personalizado del blog',
-              'Descripción relacionada con el tema elegido',
-              'Imagen o banner personalizado',
-              'Menú visible con acceso a la entrada y las 3 páginas',
-            ]}
-          />
-        </>
-      )}
     </div>
   );
 }

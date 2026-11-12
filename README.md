@@ -21,7 +21,7 @@ src/
 ## Cómo completar tu tarea
 
 1. Abre `src/data/blogContent.js` y reemplaza los textos entre corchetes `[...]` con tu investigación propia, nombre del estudiante, tema seleccionado, fuentes confiables e imágenes.
-2. En la barra superior del blog puedes usar el botón **Modo Captura** para ocultar las guías de verificación antes de tomar las capturas de pantalla para Moodle.
+2. Verifica cada página desde el menú horizontal superior antes de tomar las capturas de pantalla para Moodle.
 
 ## Comandos disponibles
 

@@ -1,10 +1,9 @@
 import { AlertTriangle, Home, MessageCircleHeart, Rocket, TrendingUp } from 'lucide-react';
-import { Button, Divider, Heading } from '../components/atoms';
+import { Button, Heading } from '../components/atoms';
 import { ContentBlock, FeatureCard, PageHeader } from '../components/molecules';
-import { RubricGuidePanel } from '../components/organisms';
 import { blogContent } from '../data/blogContent';
 
-export function ChallengesPage({ showGuides }) {
+export function ChallengesPage() {
   const { blogMeta, page3Challenges } = blogContent;
 
   return (
@@ -69,20 +68,6 @@ export function ChallengesPage({ showGuides }) {
           Volver a la página principal
         </Button>
       </div>
-
-      {showGuides && (
-        <>
-          <Divider />
-          <RubricGuidePanel
-            title="Requisitos de la Página 3: Retos y futuro"
-            items={[
-              'Desafíos o riesgos asociados a la tecnología',
-              'Tendencias futuras proyectadas',
-              'Opinión personal sobre su impacto en la sociedad',
-            ]}
-          />
-        </>
-      )}
     </div>
   );
 }

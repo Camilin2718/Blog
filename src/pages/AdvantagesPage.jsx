@@ -1,10 +1,10 @@
 import { ArrowRight, Layers } from 'lucide-react';
-import { Button, Divider, Heading, ImageSlot } from '../components/atoms';
+import { Button, Heading, ImageSlot } from '../components/atoms';
 import { PageHeader } from '../components/molecules';
-import { AdvantagesGrid, ApplicationsShowcase, RubricGuidePanel } from '../components/organisms';
+import { AdvantagesGrid, ApplicationsShowcase } from '../components/organisms';
 import { blogContent } from '../data/blogContent';
 
-export function AdvantagesPage({ showGuides }) {
+export function AdvantagesPage() {
   const { blogMeta, page2Advantages } = blogContent;
 
   return (
@@ -47,20 +47,6 @@ export function AdvantagesPage({ showGuides }) {
           Siguiente: Página 3 (Retos y futuro)
         </Button>
       </div>
-
-      {showGuides && (
-        <>
-          <Divider />
-          <RubricGuidePanel
-            title="Requisitos de la Página 2: Ventajas y aplicaciones"
-            items={[
-              'Mínimo tres ventajas claramente explicadas',
-              'Aplicaciones en vida cotidiana, educación o empresas',
-              'Al menos una imagen relacionada',
-            ]}
-          />
-        </>
-      )}
     </div>
   );
 }

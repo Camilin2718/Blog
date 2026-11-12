@@ -1,17 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   BookOpen,
   Cpu,
-  Eye,
-  EyeOff,
   Home,
   Layers,
-  Menu,
   Moon,
   Rocket,
   Sun,
-  TrendingUp,
-  X,
 } from 'lucide-react';
 import { Button, NavLinkItem } from '../atoms';
 
@@ -23,59 +19,75 @@ const NAV_ITEMS = [
   { to: '/retos-futuro', label: '3. Retos y futuro', icon: Rocket },
 ];
 
-export function Navbar({ blogTitle, theme, onToggleTheme, showGuides, onToggleGuides }) {
-  const [menuOpen, setMenuOpen] = useState(false);
+export function Navbar({ blogTitle, theme, onToggleTheme }) {
+  const { pathname } = useLocation();
+  const navRef = useRef(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false });
+
+  const updateIndicator = () => {
+    const navEl = navRef.current;
+    if (!navEl) return;
+
+    const activeEl = navEl.querySelector('.atom-nav-link--active');
+    if (!activeEl) {
+      setIndicator((prev) => ({ ...prev, ready: false }));
+      return;
+    }
+
+    setIndicator({
+      left: activeEl.offsetLeft,
+      width: activeEl.offsetWidth,
+      ready: true,
+    });
+  };
+
+  useLayoutEffect(() => {
+    updateIndicator();
+    const activeEl = navRef.current?.querySelector('.atom-nav-link--active');
+    activeEl?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+  }, [pathname]);
+
+  useEffect(() => {
+    window.addEventListener('resize', updateIndicator);
+    document.fonts?.ready?.then(updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [pathname]);
 
   return (
     <header className="navbar">
       <div className="container navbar__inner">
-        <NavLinkItem
-          to="/"
-          label={blogTitle}
-          icon={TrendingUp}
-          onClick={() => setMenuOpen(false)}
-        />
+        <Link to="/" className="navbar__brand" title={blogTitle}>
+          <span className="navbar__brand-text">{blogTitle}</span>
+        </Link>
 
-        <nav
-          aria-label="Navegación principal del blog"
-          className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}
-        >
+        <nav ref={navRef} aria-label="Navegación principal del blog" className="navbar__links">
+          <span
+            aria-hidden="true"
+            className="navbar__indicator"
+            style={{
+              width: `${indicator.width}px`,
+              transform: `translateX(${indicator.left}px)`,
+              opacity: indicator.ready ? 1 : 0,
+            }}
+          />
           {NAV_ITEMS.map((item) => (
             <NavLinkItem
               key={item.to}
               to={item.to}
               label={item.label}
               icon={item.icon}
-              onClick={() => setMenuOpen(false)}
             />
           ))}
         </nav>
 
         <div className="navbar__actions">
           <Button
-            variant="ghost"
-            onClick={onToggleGuides}
-            icon={showGuides ? EyeOff : Eye}
-            title={showGuides ? 'Ocultar guía de pautas para captura' : 'Mostrar guía de pautas'}
-            aria-label="Alternar guía de pautas"
-          >
-            <span style={{ fontSize: '0.82rem' }}>{showGuides ? 'Modo Captura' : 'Ver Guía'}</span>
-          </Button>
-
-          <Button
-            variant="ghost"
+            variant="secondary"
             onClick={onToggleTheme}
             icon={theme === 'dark' ? Sun : Moon}
             aria-label="Cambiar tema claro u oscuro"
-            title="Cambiar tema"
-          />
-
-          <Button
-            variant="ghost"
-            className="navbar__menu-btn"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            icon={menuOpen ? X : Menu}
-            aria-label="Abrir menú de navegación"
+            title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            className="navbar__theme-btn"
           />
         </div>
       </div>
