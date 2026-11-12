@@ -5,9 +5,11 @@ import {
   Cpu,
   Home,
   Layers,
+  Menu,
   Moon,
   Rocket,
   Sun,
+  X,
 } from 'lucide-react';
 import { Button, NavLinkItem } from '../atoms';
 
@@ -23,6 +25,24 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
   const { pathname } = useLocation();
   const navRef = useRef(null);
   const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Cerrar el menú móvil al cambiar de ruta
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Bloquear el scroll del body cuando el menú móvil esté abierto
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const updateIndicator = () => {
     const navEl = navRef.current;
@@ -43,8 +63,6 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
 
   useLayoutEffect(() => {
     updateIndicator();
-    const activeEl = navRef.current?.querySelector('.atom-nav-link--active');
-    activeEl?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
   }, [pathname]);
 
   useEffect(() => {
@@ -60,7 +78,12 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
           <span className="navbar__brand-text">{blogTitle}</span>
         </Link>
 
-        <nav ref={navRef} aria-label="Navegación principal del blog" className="navbar__links">
+        {/* Menú de escritorio horizontal */}
+        <nav
+          ref={navRef}
+          aria-label="Navegación principal de escritorio"
+          className="navbar__links navbar__links--desktop"
+        >
           <span
             aria-hidden="true"
             className="navbar__indicator"
@@ -89,6 +112,56 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
             title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
             className="navbar__theme-btn"
           />
+
+          {/* Botón hamburguesa exclusivo para móvil */}
+          <button
+            type="button"
+            className="navbar__burger-btn"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Menú desplegable móvil */}
+      {mobileMenuOpen && (
+        <div
+          className="navbar__mobile-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <div
+        className={`navbar__mobile-drawer ${
+          mobileMenuOpen ? 'navbar__mobile-drawer--open' : ''
+        }`}
+        aria-label="Menú móvil"
+      >
+        <div className="navbar__mobile-nav">
+          <div className="navbar__mobile-header">
+            <span className="navbar__mobile-tag">Navegación del Blog</span>
+            <button
+              type="button"
+              className="navbar__mobile-close-btn"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Cerrar menú"
+            >
+              <X size={20} />
+            </button>
+          </div>
+          {NAV_ITEMS.map((item) => (
+            <NavLinkItem
+              key={item.to}
+              to={item.to}
+              label={item.label}
+              icon={item.icon}
+              onClick={() => setMobileMenuOpen(false)}
+            />
+          ))}
         </div>
       </div>
     </header>
