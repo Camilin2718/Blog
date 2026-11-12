@@ -15,19 +15,34 @@ export function WhatIsPage() {
         subtitle={page1WhatIs.subtitle}
       />
 
-      <div className="grid-2" style={{ alignItems: 'start' }}>
-        <ContentBlock badge="Definición" title="Concepto general" icon={Compass} highlight>
-          <p style={{ margin: 0, lineHeight: 1.75 }}>{page1WhatIs.definition}</p>
-        </ContentBlock>
+      {/* Bloque principal unificado: Definición con imagen integrada armónicamente */}
+      <section className="definition-card">
+        <div className="definition-card__grid">
+          <div className="definition-card__body">
+            <div className="definition-card__badge-row">
+              <span className="atom-badge atom-badge--accent">
+                <Compass size={14} aria-hidden="true" />
+                <span>Definición</span>
+              </span>
+            </div>
+            <Heading level={2} className="definition-card__title">
+              Concepto general
+            </Heading>
+            <p className="definition-card__text">{page1WhatIs.definition}</p>
+          </div>
 
-        <ImageSlot
-          src={page1WhatIs.image}
-          alt={page1WhatIs.imageAlt}
-          caption={page1WhatIs.imageCaption}
-          hint="Agrega al menos una imagen relacionada en page1WhatIs.image"
-        />
-      </div>
+          <div className="definition-card__media">
+            <ImageSlot
+              src={page1WhatIs.image}
+              alt={page1WhatIs.imageAlt}
+              caption={page1WhatIs.imageCaption}
+              hint="Agrega al menos una imagen en page1WhatIs.image"
+            />
+          </div>
+        </div>
+      </section>
 
+      {/* Características principales */}
       <section className="section-block">
         <div className="section-header">
           <Heading level={2}>Características principales</Heading>
@@ -45,13 +60,15 @@ export function WhatIsPage() {
         </div>
       </section>
 
+      {/* Importancia actual */}
       <section className="section-block">
         <ContentBlock badge="Contexto actual" title="Importancia en la actualidad" icon={Sparkles}>
           <p style={{ margin: 0, lineHeight: 1.75 }}>{page1WhatIs.currentImportance}</p>
         </ContentBlock>
       </section>
 
-      <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+      {/* Navegación inferior */}
+      <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
         <Button to="/entrada" variant="secondary">
           Anterior: Entrada del Blog
         </Button>
