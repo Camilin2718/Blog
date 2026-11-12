@@ -14,9 +14,6 @@ export function HeroBanner({
       <div className="hero-banner__glow" aria-hidden="true" />
       <div className="hero-banner__grid">
         <div>
-          <Badge variant="hero" icon={Sparkles}>
-            Tendencia: {technologyName}
-          </Badge>
           <Heading level={1} className="hero-banner__title">
             {blogTitle}
           </Heading>

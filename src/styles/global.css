@@ -426,7 +426,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: 1rem;
   min-height: 56px;
 }
 
@@ -436,11 +436,15 @@ img {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.05rem;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .navbar__brand-text {
-  white-space: nowrap;
+  display: inline-block;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.25;
 }
 
 .navbar__links {
@@ -708,10 +712,15 @@ img {
     display: inline-flex !important;
   }
 
+  .navbar__brand {
+    font-size: 0.95rem;
+  }
+
   .navbar__brand-text {
-    max-width: 220px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
   }
 
   .navbar__theme-label {
@@ -720,8 +729,25 @@ img {
 }
 
 @media (max-width: 480px) {
+  .navbar__inner {
+    gap: 0.5rem;
+  }
+
+  .navbar__brand {
+    font-size: 0.88rem;
+  }
+
   .navbar__brand-text {
-    max-width: 170px;
+    max-width: 100%;
+  }
+
+  .navbar__theme-toggle {
+    padding: 0.45rem 0.55rem;
+  }
+
+  .navbar__burger-btn {
+    width: 36px;
+    height: 36px;
   }
 }
 
