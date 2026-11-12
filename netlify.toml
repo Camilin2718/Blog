@@ -1,0 +1,10 @@
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+
+# Single-page app: send all routes (e.g. /entrada, /ventajas) to index.html
+# so React Router can handle them on refresh or direct visits.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
