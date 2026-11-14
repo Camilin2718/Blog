@@ -148,7 +148,7 @@ export const blogContent = {
         id: 'risk-3',
         title: 'Disminución del pensamiento crítico',
         description:
-          'Siento que, al acostumbrarnos a utilizar la inteligencia artificial para resolverlo todo, podemos dejar de desarrollar nuestras propias capacidades para pensar, analizar y buscar soluciones. En el ámbito estudiantil, por ejemplo, muchas veces dejamos de utilizarla como una guía de aprendizaje y terminamos pidiéndole que realice nuestros trabajos completos, sin esforzarnos por comprender los temas.',
+          'Al acostumbrarnos a utilizar la inteligencia artificial para resolverlo todo, podemos dejar de desarrollar nuestras propias capacidades para pensar, analizar y buscar soluciones. En el ámbito estudiantil, por ejemplo, muchas veces dejamos de utilizarla como una guía de aprendizaje y terminamos pidiéndole que realice nuestros trabajos completos, sin esforzarnos por comprender los temas.',
       },
     ],
     futureTrends: [
