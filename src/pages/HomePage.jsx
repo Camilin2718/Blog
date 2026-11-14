@@ -27,46 +27,6 @@ export function HomePage() {
         />
       </div>
 
-      <section className="section-block">
-        <SurfaceCard highlight>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1.25rem',
-            }}
-          >
-            <div style={{ maxWidth: '64ch' }}>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  color: 'var(--accent-primary)',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  marginBottom: '0.45rem',
-                }}
-              >
-                <Sparkles size={15} aria-hidden="true" />
-                <span>PUBLICACIÓN DESTACADA</span>
-              </div>
-              <Heading level={2}>{postTitle}</Heading>
-              <p style={{ margin: '0.55rem 0 0', color: 'var(--text-secondary)' }}>
-                {mainPost.paragraphs[0]}
-              </p>
-            </div>
-
-            <Button to="/entrada" variant="primary" icon={BookOpen}>
-              Leer entrada completa
-            </Button>
-          </div>
-        </SurfaceCard>
-      </section>
-
       <PageNavigationCards technologyName={blogMeta.technologyName} />
     </div>
   );

@@ -1,6 +1,6 @@
-import { ArrowRight, Compass, Cpu, Sparkles } from 'lucide-react';
+import { ArrowRight, Compass, Cpu } from 'lucide-react';
 import { Button, Heading, ImageSlot } from '../components/atoms';
-import { ContentBlock, FeatureCard, PageHeader } from '../components/molecules';
+import { AuthorMeta, FeatureCard, PageHeader } from '../components/molecules';
 import { blogContent } from '../data/blogContent';
 
 export function WhatIsPage() {
@@ -8,15 +8,24 @@ export function WhatIsPage() {
 
   return (
     <div>
+      {/* Encabezado de la página */}
       <PageHeader
         badge={page1WhatIs.badge}
         icon={Cpu}
-        title={`${page1WhatIs.titlePrefix} ${blogMeta.technologyName}?`}
-        subtitle={page1WhatIs.subtitle}
+        title="¿Qué es la inteligencia artificial?"
+        subtitle={blogMeta.blogSubtitle}
       />
 
-      {/* Bloque principal unificado: Definición con imagen integrada armónicamente */}
-      <section className="definition-card">
+      <div style={{ marginBottom: '2rem' }}>
+        <AuthorMeta
+          studentName={blogMeta.studentName}
+          institution={blogMeta.institution}
+          publishDate={blogMeta.publishDate}
+        />
+      </div>
+
+      {/* Definición con el título "Inteligencia artificial" y badge "Definición" */}
+      <section id="definicion" className="definition-card">
         <div className="definition-card__grid">
           <div className="definition-card__body">
             <div className="definition-card__badge-row">
@@ -26,17 +35,25 @@ export function WhatIsPage() {
               </span>
             </div>
             <Heading level={2} className="definition-card__title">
-              Concepto general
+              Inteligencia artificial
             </Heading>
-            <p className="definition-card__text">{page1WhatIs.definition}</p>
+            <div
+              className="definition-card__text"
+              style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}
+            >
+              {page1WhatIs.definition.split('\n\n').map((p, idx) => (
+                <p key={idx} style={{ margin: 0 }}>
+                  {p}
+                </p>
+              ))}
+            </div>
           </div>
 
           <div className="definition-card__media">
             <ImageSlot
-              src={page1WhatIs.image}
-              alt={page1WhatIs.imageAlt}
-              caption={page1WhatIs.imageCaption}
-              hint="Agrega al menos una imagen en page1WhatIs.image"
+              src={page1WhatIs.image1}
+              alt="Robots en proceso de ensamblaje"
+              caption={page1WhatIs.image1Caption}
             />
           </div>
         </div>
@@ -60,20 +77,57 @@ export function WhatIsPage() {
         </div>
       </section>
 
-      {/* Importancia actual */}
+      {/* Importancia en la actualidad */}
       <section className="section-block">
-        <ContentBlock badge="Contexto actual" title="Importancia en la actualidad" icon={Sparkles}>
-          <p style={{ margin: 0, lineHeight: 1.75 }}>{page1WhatIs.currentImportance}</p>
-        </ContentBlock>
+        <div className="section-header">
+          <Heading level={2}>Importancia en la actualidad</Heading>
+        </div>
+        <div className="grid-2" style={{ alignItems: 'stretch' }}>
+          <div
+            className="atom-surface atom-surface--padded"
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}
+          >
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: '1.25rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.85rem',
+                color: 'var(--text-secondary)',
+                fontSize: '1rem',
+                lineHeight: 1.75,
+              }}
+            >
+              {page1WhatIs.currentImportance.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <ImageSlot
+              src={page1WhatIs.image2}
+              alt="Clasificación automatizada"
+              caption={page1WhatIs.image2Caption}
+            />
+          </div>
+        </div>
       </section>
 
-      {/* Navegación inferior */}
-      <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-        <Button to="/entrada" variant="secondary">
-          Anterior: Entrada del Blog
-        </Button>
+
+      {/* Navegación al siguiente tema */}
+      <div
+        style={{
+          marginTop: '2.5rem',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
         <Button to="/ventajas" variant="primary" icon={ArrowRight}>
-          Siguiente: Página 2 (Ventajas y aplicaciones)
+          Siguiente: 2. Ventajas y aplicaciones
         </Button>
       </div>
     </div>

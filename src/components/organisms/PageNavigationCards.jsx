@@ -1,42 +1,36 @@
-import { ArrowRight, BookOpen, Cpu, Layers, Rocket } from 'lucide-react';
+import { ArrowRight, Cpu, Layers, Rocket } from 'lucide-react';
 import { Badge, Button, Heading, SurfaceCard } from '../atoms';
 
 const CARDS = [
   {
-    to: '/entrada',
-    badge: 'Entrada del Blog',
-    icon: BookOpen,
-    title: 'La importancia en la actualidad',
-    description:
-      'Publicación principal (mínimo 300 palabras), imagen relacionada, fuente confiable y conclusión personal.',
-    cta: 'Ir a la entrada',
-  },
-  {
-    to: '/que-es',
+    to: '/',
     badge: 'Página 1',
     icon: Cpu,
-    title: '¿Qué es la tecnología?',
+    title: '1. ¿Qué es la inteligencia artificial?',
     description:
-      'Definición clara, características principales, relevancia contemporánea e imagen ilustrativa.',
-    cta: 'Abrir Página 1',
+      'Definición fundamental, características principales e importancia de la tecnología en la actualidad.',
+    cta: 'Sección actual',
+    isCurrent: true,
   },
   {
     to: '/ventajas',
     badge: 'Página 2',
     icon: Layers,
-    title: 'Ventajas y aplicaciones',
+    title: '2. Ventajas y aplicaciones',
     description:
-      'Mínimo tres ventajas y sus usos en la vida cotidiana, la educación y las empresas.',
-    cta: 'Abrir Página 2',
+      'Beneficios clave y casos prácticos en educación, empresas y la vida cotidiana.',
+    cta: 'Ir a Ventajas y usos',
+    isCurrent: false,
   },
   {
     to: '/retos-futuro',
     badge: 'Página 3',
     icon: Rocket,
-    title: 'Retos y futuro',
+    title: '3. Retos, futuro y opinión personal',
     description:
-      'Desafíos o riesgos asociados, tendencias futuras y opinión personal sobre su impacto social.',
-    cta: 'Abrir Página 3',
+      'Desafíos críticos, riesgos, tendencias emergentes y postura crítica de la autora.',
+    cta: 'Ir a Retos y opinión',
+    isCurrent: false,
   },
 ];
 
@@ -45,14 +39,14 @@ export function PageNavigationCards({ technologyName }) {
     <section className="section-block">
       <div className="section-header">
         <div>
-          <Heading level={2}>Mapa de contenidos del blog</Heading>
+          <Heading level={2}>Estructura completa del blog</Heading>
           <p style={{ margin: '0.35rem 0 0', color: 'var(--text-secondary)' }}>
-            Todas las páginas y la entrada principal sobre <strong>{technologyName}</strong> accesibles desde un solo lugar.
+            Explora las 3 páginas académicas sobre <strong>{technologyName}</strong>.
           </p>
         </div>
       </div>
 
-      <div className="grid-2">
+      <div className="grid-3">
         {CARDS.map((card) => {
           const Icon = card.icon;
           return (
@@ -64,13 +58,29 @@ export function PageNavigationCards({ technologyName }) {
                   </Badge>
                 </div>
                 <Heading level={3}>{card.title}</Heading>
-                <p style={{ margin: 0, color: 'var(--text-secondary)', flex: 1 }}>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', flex: 1, lineHeight: 1.6 }}>
                   {card.description}
                 </p>
-                <div>
-                  <Button to={card.to} variant="secondary" icon={ArrowRight}>
-                    {card.cta}
-                  </Button>
+                <div style={{ marginTop: '0.5rem' }}>
+                  {card.isCurrent ? (
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '0.85rem',
+                        fontWeight: 600,
+                        color: 'var(--accent-primary)',
+                        padding: '0.45rem 0.65rem',
+                        background: 'var(--bg-surface-alt)',
+                        borderRadius: 'var(--radius-sm)',
+                      }}
+                    >
+                      Página activa
+                    </span>
+                  ) : (
+                    <Button to={card.to} variant="secondary" icon={ArrowRight}>
+                      {card.cta}
+                    </Button>
+                  )}
                 </div>
               </div>
             </SurfaceCard>

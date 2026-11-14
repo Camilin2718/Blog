@@ -1,5 +1,5 @@
-import { ArrowRight, BookOpen, Image as ImageIcon, Sparkles } from 'lucide-react';
-import { Badge, Button, Heading } from '../atoms';
+import { ArrowDown, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { Button, Heading } from '../atoms';
 
 export function HeroBanner({
   blogTitle,
@@ -30,11 +30,16 @@ export function HeroBanner({
           <p className="hero-banner__description">{description}</p>
 
           <div className="hero-banner__actions">
-            <Button to="/entrada" variant="primary" icon={BookOpen}>
-              Leer entrada principal
-            </Button>
+            <a
+              href="#definicion"
+              className="atom-button atom-button--primary"
+              style={{ textDecoration: 'none' }}
+            >
+              <span>Explorar contenido</span>
+              <ArrowDown size={16} aria-hidden="true" />
+            </a>
             <Button
-              to="/que-es"
+              to="/ventajas"
               variant="secondary"
               icon={ArrowRight}
               style={{
@@ -43,7 +48,7 @@ export function HeroBanner({
                 borderColor: 'rgba(255,255,255,0.22)',
               }}
             >
-              Explorar Página 1
+              2. Ventajas y usos
             </Button>
           </div>
         </div>

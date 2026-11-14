@@ -4,5 +4,6 @@ export { Divider } from './Divider';
 export { Heading } from './Heading';
 export { ImageSlot } from './ImageSlot';
 export { NavLinkItem } from './NavLinkItem';
+export { ScrollToTopButton } from './ScrollToTopButton';
 export { SurfaceCard } from './SurfaceCard';
 export { WordCounterBadge } from './WordCounterBadge';

@@ -2,9 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  BookOpen,
   Cpu,
-  Home,
   Layers,
   Menu,
   Moon,
@@ -15,9 +13,7 @@ import {
 import { Button, NavLinkItem } from '../atoms';
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Inicio', icon: Home },
-  { to: '/entrada', label: 'Entrada del Blog', icon: BookOpen },
-  { to: '/que-es', label: '1. ¿Qué es?', icon: Cpu },
+  { to: '/', label: '1. ¿Qué es?', icon: Cpu },
   { to: '/ventajas', label: '2. Ventajas y usos', icon: Layers },
   { to: '/retos-futuro', label: '3. Retos y futuro', icon: Rocket },
 ];
@@ -27,6 +23,24 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
   const navRef = useRef(null);
   const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Barra de progreso de lectura ligada al scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const current = (window.scrollY / totalHeight) * 100;
+        setScrollProgress(Math.min(100, Math.max(0, current)));
+      } else {
+        setScrollProgress(0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname]);
 
   // Cerrar el menú móvil al cambiar de ruta
   useEffect(() => {
@@ -74,6 +88,13 @@ export function Navbar({ blogTitle, theme, onToggleTheme }) {
 
   return (
     <header className="navbar">
+      {/* Barra de progreso de lectura interactiva */}
+      <div
+        className="navbar__progress-bar"
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden="true"
+      />
+
       <div className="container navbar__inner">
         <Link to="/" className="navbar__brand" title={blogTitle}>
           <span className="navbar__brand-text">{blogTitle}</span>

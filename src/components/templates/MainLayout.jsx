@@ -1,3 +1,4 @@
+import { ScrollToTopButton } from '../atoms';
 import { Footer, Navbar } from '../organisms';
 
 export function MainLayout({ children, blogMeta, theme, onToggleTheme }) {
@@ -19,6 +20,9 @@ export function MainLayout({ children, blogMeta, theme, onToggleTheme }) {
         institution={blogMeta.institution}
         technologyName={blogMeta.technologyName}
       />
+
+      {/* Botón flotante para volver arriba */}
+      <ScrollToTopButton />
     </div>
   );
 }

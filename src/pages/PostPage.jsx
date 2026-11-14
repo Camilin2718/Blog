@@ -29,11 +29,11 @@ export function PostPage() {
       <PostArticle post={mainPost} />
 
       <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-        <Button to="/" variant="secondary">
-          Volver al inicio
+        <Button to="/retos-futuro" variant="secondary">
+          Anterior: Página 3 (Retos y futuro)
         </Button>
-        <Button to="/que-es" variant="primary" icon={ArrowRight}>
-          Continuar a Página 1: ¿Qué es?
+        <Button to="/" variant="primary">
+          Volver al Inicio
         </Button>
       </div>
     </div>
