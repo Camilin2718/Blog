@@ -12,7 +12,7 @@ export function WhatIsPage() {
       <PageHeader
         badge={page1WhatIs.badge}
         icon={Cpu}
-        title="¿Qué es la inteligencia artificial?"
+        title="La importancia de la inteligencia artificial en la actualidad"
         subtitle={blogMeta.blogSubtitle}
       />
 

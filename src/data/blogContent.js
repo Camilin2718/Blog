@@ -19,7 +19,7 @@ export const blogContent = {
   // 1. ¿Qué es la inteligencia artificial?
   page1WhatIs: {
     badge: 'Página 1',
-    title: '¿Qué es la inteligencia artificial?',
+    title: 'La importancia de la inteligencia artificial en la actualidad',
     subtitle: 'Fundamentos, características esenciales y relevancia contemporánea.',
     definition:
       'La inteligencia artificial básicamente, es lograr que las computadoras y los aparatos hagan cosas que normalmente haríamos nosotros, los humanos.\n\nO sea, la idea es que la máquina no solo siga órdenes mecánicas y ya, sino que piense un poquito, aprenda de los errores y resuelva problemas por su cuenta, ya sea intentando imitar cómo razonamos o buscando el camino más lógico para llegar a una solución.',
